@@ -177,7 +177,7 @@ mtcars$hp2<- as.factor(mtcars$hp)
 ```{r}
 summary(mtcars$hp)
 summary(mtcars$hp2)
-# numeric data displays max, min, median, and quartiles. Factor data shows a string of numbers
+# numeric data displays max, min, median, and quartiles. Factor data shows a string of numbers with frequencies
 ```
 
 
