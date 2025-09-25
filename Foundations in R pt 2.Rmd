@@ -81,35 +81,41 @@ penguins$amandaFavorite <- NA
 ```
 Then you can fill it with whatever information you want. 
 ```{r}
-
+penguins$amandaFavorite <- "yes"
+penguins$highJump <- 10
+penguins$highJump<- sample(1:45, 344, replace=TRUE)
 ```
 or you can fill the new column in based on other data in the dataframe
 ```{r}
-
+penguins$highJump<- NA
+penguins$highJump[penguins$species=="Chinstrap"]<- 10
+subset(penguins, penguins$species=="Chinstrap")
 ```
 can do math to fill in the columns
 ```{r}
-
+penguins$billInfo<- penguins$billLengthMm + penguins$billDepthMm
+penguins %>% select(billLengthMm, billDepthMm, billInfo)
 ```
 
 #### Learning Outcome 1 Practice: 
 
 1. Change all of the column names in mtcars to capital letters
 ```{r}
-
+mtcars
+colnames(mtcars)<- toupper(colnames(mtcars))
 ```
 2. Change the name of the 9th column to reflect the values in the am column description
 ```{r}
-
+colnames(mtcars)[9]<- "AUTOMATIC?"
 ```
 
 3. Change the 4th column name to all lowercase letters 
 ```{r}
-
+colnames(mtcars)[4]<- tolower(colnames(mtcars)[4])
 ```
 
 ```{r}
-
+colnames(mtcars)<- tolower(mtcars)
 ```
 
 ## Learning Outcome 2: Explain different classes of variables and how to change the class
