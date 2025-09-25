@@ -31,39 +31,44 @@ Last time, we talked about how you can compute descriptive statistics on specifi
 install.packages("palmerpenguins")
 library(palmerpenguins)
 data(penguins)
+
+penguins$species
 ```
 
 
 You could print the dataframe repeatedly, but it's tedious. Here are some functions you can use to find the column names:
 ```{r}
-
+colnames(penguins)
 ```
 
 We'll use diamonds to learn about: `colnames()`, `names()`, and 0 row
 ```{r}
-
+names(penguins)
+colnames(penguins)[2]
 ```
 
 ### editing column names 
 `colnames()` returns all of the column names in a vector. So we can get column names using indexing as well. 
 ```{r}
-
+colnames(penguins)[3]<- "billLengthMm"
+colnames(penguins)[3]
 ```
 
 It **also** means that you can change names if necessary (when we talk about dataframe manipulation next week, this can become important.)
 `colnames(data)[position]`
 ```{r}
-
+colnames(penguins)[4:6]<- c("billDepthMm", "flipperLengthMm", "bodyMassG")
+colnames(penguins)
 ```
 
 More often than not, we're using datasets that we either created or received from collaborators. That means that you may be dealing with problems **past you** graciously left you, different naming conventions, or even needing to manipulate variables that combine information. We'll talk about how to fix some of the more involved ones next week. For now, ones that may be helpful are making sure your column names are all lower case or all upper case. You can do this with the `toupper()` and `tolower()` functions:
 
 ```{r}
-
+toupper(colnames(penguins))
 ```
 
 ```{r}
-
+tolower(colnames(penguins))
 ```
 
 ### Adding Column Names
@@ -72,7 +77,7 @@ dataframe$newColumn<- whatever you're assigning
 
 For instance, if you want to add a blank column:
 ```{r}
-
+penguins$amandaFavorite <- NA
 ```
 Then you can fill it with whatever information you want. 
 ```{r}
