@@ -4,6 +4,10 @@ author: "Amanda Mae Woodward"
 date: "2025-09-23"
 output: html_document
 ---
+```{r setup}
+library(tidyverse)
+library(ggplot2)
+```
 
 # Learning Outcomes: 
 
@@ -24,7 +28,9 @@ We'll keep talking about dataframes throughout the semester, but there are some 
 Last time, we talked about how you can compute descriptive statistics on specific variables by using `dataframe$name`. what do you do if you don't remember the name of a variable? 
 
 ```{r}
-
+install.packages("palmerpenguins")
+library(palmerpenguins)
+data(penguins)
 ```
 
 
