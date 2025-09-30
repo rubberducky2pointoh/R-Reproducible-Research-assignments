@@ -233,11 +233,11 @@ multiplySeven(5)
 **my favorite is**
 `paste()`
 ```{r}
-
+myFavorite<- function(thing){paste("My favorite food is", thing)}
 ```
 test
 ```{r}
-
+myFavorite("dumplings")
 ```
 
 ### Multiple argument functions
@@ -245,29 +245,36 @@ test
 We can make functions with more than one argument. For instance we could multiply all of the numbers in our original vector by a second vector 10-1
 
 ```{r}
-
+tenToOne<- 10:1
+tenToOne
+```
+```{r}
+multiplyBy<- function(number1, number2){number1*number2}
+multiplyBy(oneToTen, tenToOne)
+numberDat<- cbind.data.frame(oneToTen, tenToOne)
+numberDat$multiply<- multiplyBy(oneToTen, tenToOne)
 ```
 
 ### Learning Outcome 3 Practice
 
 1. Make a function that divides numbers by 100. 
 ```{r}
-
+divide100<- function(number){number/100}
 ```
 
 2. Test your function on the mtcars mpg column.
 ```{r}
-
+divide100(mtcars$mpg)
 ```
 
 3. Make a function that finds the mean of a column and divides it by the standard deviation of another column.
 ```{r}
-
+meanDivideBySD<- function(thing1, thing2){mean(thing1)/sd(thing2)}
 ```
 
 4. Test it on the mpg column and hp column. 
 ```{r}
-
+meanDivideBySD(mtcars$mpg, mtcars$hp)
 ```
 
 ## Learning Outcome 4: Create your own for loop
