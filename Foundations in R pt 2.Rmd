@@ -277,7 +277,7 @@ meanDivideBySD<- function(thing1, thing2){mean(thing1)/sd(thing2)}
 meanDivideBySD(mtcars$mpg, mtcars$hp)
 ```
 ```{r}
-thisNonsense<- function(number1, number2, number3){(mean(number1)-mean(number2))/sd(number3)}
+thisNonsense<- function(number1, number2, number3){((number1)-(number2))/sd(number3)}
 thisNonsense(mtcars$mpg, mtcars$cyl, mtcars$disp)
 ```
 
@@ -289,12 +289,15 @@ Let's say we wanted to create a column in the chickweight dataset that indicated
 
 We'd have to make a new column
 ```{r}
-
-
+data("ChickWeight")
+summary(as.factor(ChickWeight$Time))
+ChickWeight$beginEnd<- NA
 ```
+
 and then fill in that new column by indexing the days column, which has 12 different days. 
 ```{r}
-
+ChickWeight$beginEnd[ChickWeight$Time>16]<- "end"
+ChickWeight$beginEnd[ChickWeight$Time<5]<- "beginning"
 ```
 
 We could use a **for loop** though to go through each row of the data set and fill out the new column (beginning or end) based on the days in the Time column.
@@ -313,14 +316,21 @@ think we want to do
 }
 
 ```{r}
-
+for(i in 1:nrow(ChickWeight)){ChickWeight$beginEnd[i]<-ChickWeight$Time[i]>10}
 ```
 
 ### Practice for Learning Outcome 4: 
 
 1. Create a for loop that will multiply each number in a vector by 4. Test it with a vector containing the numbers 10:100. 
 ```{r}
+tenToHundred<- 10:100
+chart<- cbind.data.frame(tenToHundred)
+chart
+chart$backwards<- NA
+for(i in 1:nrow(chart)){chart$backwards[i]<-chart$tenToHundred[i]*4}
 
+vectNum<- 10:100
+for(i in 1:length(vectNum)){vectNum[i]<-vectNum[i]*4}
 ```
 
 2. Create a new column in the mtcars data set that indicated whether a car has good mileage (over 25 mpg) or bad mileage (25 mpg or fewer).  
