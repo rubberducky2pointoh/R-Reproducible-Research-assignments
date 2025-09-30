@@ -196,37 +196,38 @@ You can make a simple function that adds two to a set of numbers
 Before we make the function, we'll make a vector of numbers (1-10) as our input
 
 ```{r}
-
+oneToTen<- 1:10
 ```
 
 then, we'll name our function addTwo and give it one argument or input
 
 ```{r}
-
+addTwo<- function(number){number + 2}
 ```
 if we run this correctly, it should show up in the environment (top right). 
 
 Then, we can use our function to add two to our vector:
 
 ```{r}
-
+addTwo(7)
+addTwo(oneToTen)
 ```
 
 One thing to note- anything you make in a function **stays in the function.** If you want to save it to a dataframe, you treat your new function just like any other R function (i.e. you need to assign the output to a column or variable)
 
 ```{r}
 "dataframe$column <- function"
-
+onePlusTwo<- addTwo(oneToTen)
 ```
 
 ## Practice:
 function to multiply by 7
 ```{r}
-
+multiplySeven<- function(number){number * 7}
 ```
 test it out
 ```{r}
-
+multiplySeven(5)
 ```
 
 **my favorite is**
