@@ -276,6 +276,10 @@ meanDivideBySD<- function(thing1, thing2){mean(thing1)/sd(thing2)}
 ```{r}
 meanDivideBySD(mtcars$mpg, mtcars$hp)
 ```
+```{r}
+thisNonsense<- function(number1, number2, number3){(mean(number1)-mean(number2))/sd(number3)}
+thisNonsense(mtcars$mpg, mtcars$cyl, mtcars$disp)
+```
 
 ## Learning Outcome 4: Create your own for loop
 
