@@ -335,7 +335,9 @@ for(i in 1:length(vectNum)){vectNum[i]<-vectNum[i]*4}
 
 2. Create a new column in the mtcars data set that indicated whether a car has good mileage (over 25 mpg) or bad mileage (25 mpg or fewer).  
 ```{r}
-
+mtcars
+mtcars$goodMileage<- NA
+for(i in 1:nrow(mtcars)){mtcars$goodMileage[i]<-mtcars$mpg[i]>25}
 ```
 
 ## Learning Outcome 5: Create your own if statements and ifelse statments
