@@ -79,7 +79,7 @@ value- what you'd like the scores column to be called
 longDat2<- gather(aggressionDat, key= "timePoint",value = "aggressionScore", c("baselineAggression", "postAggression"))
 ```
 
-**melt**
+**melt** 
 `melt()` is a function in the reshape2 library. It's another way to create long data
 ```{r}
 library(reshape2)
