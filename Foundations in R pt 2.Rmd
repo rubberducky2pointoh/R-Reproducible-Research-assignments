@@ -405,3 +405,25 @@ mtcars$transmissionType<- ifelse(mtcars$am==1, "manual", "automatic")
 
 mtcars$test<- ifelse(mtcars$gear==4, "a", ifelse(mtcars$gear==5, "b", "c"))
 ```
+
+### Bonus for loop
+
+based on the island the penguins are on, fill in a new column that tells us whose favotite it is
+Tejiri = Dream
+Sawyer = Biscoe
+Rachel = Torgersen
+```{r}
+penguins$studentFavorite<- NA
+for(i in 1:nrow(penguins)){
+  if(penguins$island[i]=="Dream"){
+    penguins$studentFavorite[i]<- "Tejiri"
+  }
+  if(penguins$island[i]=="Biscoe"){
+    penguins$studentFavorite[i]<- "Sawyer"
+  }
+  if(penguins$island[i]=="Torgersen"){
+    penguins$studentFavorite[i]<- "Rachel"
+  }
+}
+```
+
