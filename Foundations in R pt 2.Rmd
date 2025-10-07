@@ -401,6 +401,7 @@ for(){
 }
 2. create a new column in the mtcars data set to indicate whether a car has a manual or automatic transmission. 
 ```{r}
+mtcars$transmissiontype<- NA
 mtcars$transmissionType<- ifelse(mtcars$am==1, "manual", "automatic")
 
 mtcars$test<- ifelse(mtcars$gear==4, "a", ifelse(mtcars$gear==5, "b", "c"))
