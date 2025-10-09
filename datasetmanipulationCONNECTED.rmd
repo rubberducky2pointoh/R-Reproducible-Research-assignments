@@ -94,11 +94,11 @@ longdat3<- melt(aggressionDat, id.vars= c("subjNo", "ageGroup","parentReportGend
 
 1. open the billboard dataset. 
 ```{r}
-
+data(billboard)
 ```
 2. convert it from wide to long format. 
 ```{r}
-
+longBillboard<- pivot_longer(billboard, cols = 4:79, names_to = "week", values_to = "score")
 ```
 
 ### Learning Outcome 2: Transform data from long to wide
