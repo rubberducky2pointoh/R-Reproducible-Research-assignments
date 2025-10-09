@@ -154,11 +154,15 @@ data("ChickWeight")
 2. Convert it from long to wide format. 
 ```{r}
 wideChick<- pivot_wider(ChickWeight, id_cols = c("Chick", "Diet"), names_from = "Time", values_from = "weight")
+# pivot_wider(ChickWeight, id_cols = 1:2, names_from = "Time", values_from = "weight")
+# This works because only Chick and Diet columns are left! When Time and weight are taken out, R only looks at whatever columns are remaining
 ```
 
 3. Convert from wide to long. 
 ```{r}
 longChick<- pivot_longer(wideChick, cols = 3:14, names_to = "Time", values_to = "weight")
+
+longChick2<- na.omit(longChick) #BE SO SO SO CAREFUL WITH THIS
 ```
 
 
@@ -186,16 +190,19 @@ you can use some of the commands we've already used in a different structure
 
 1) open sleep data set
 ```{r}
-
+data(sleep)
 ```
 
 2) identify the type of data
-
+# This is long data
 3) change it to the other type
+```{r}
+wideSleep<- pivot_wider(sleep, id_cols = 1, names_from = "group", values_from = "extra")
+```
 
 4) Go back to the chick weight dataset and take all data from chick 3 and put it in wide format 
 ```{r}
-
+wideChickThree<- ChickWeight %>% filter(Chick==3) %>% pivot_wider(id_cols = c("Chick", "Diet"), names_from = "Time", values_from = "weight")
 ```
 
 ### Learning Outcome 3: Join data sets in R
