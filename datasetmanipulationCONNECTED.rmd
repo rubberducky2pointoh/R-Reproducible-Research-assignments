@@ -211,24 +211,31 @@ Some times, we have datasets that we need to join or merge (e.g. participant dem
 We'll practice on the following code: 
 Make a data frame with subject number and simulated anxiety scores
 ```{r}
+#Hamilton anxiety rating scale(<17 mild, 18-24 mild/moderate, 25-30 moderate/severe, 30-56 severe)
+simulatedAnxietyScore<- sample(48, x= 0:56, replace = TRUE)
+simulatedAnxietyScore
 
+anxietyDat<- data.frame(subjNo= aggressionDat$subjNo, simulatedAnxietyScore)
 ```
 use `left_join()`
 ```{r}
-
+anxietyAggressionDat<- left_join(aggressionDat, anxietyDat)
 ```
 
-`right_join()` does the same thing, but places the new column to the right. 
+`right_join()` does the same thing, but starts on the right. 
 
 #### Learning Outcome 3 Practice
 1. Create a dataframe (n=48) that includes subject numbers and executive function scores (ranging from 0-16).
 ```{r}
+execFunctionSimulated<- sample(48, x= 0:16, replace=TRUE)
+execFunctionSimulated
 
+execFunctionDat<- data.frame(subjNo=aggressionDat$subjNo, execFunctionSimulated)
 ```
 
 2. Join your dataset in #1 to the original Aggression dataset. 
 ```{r}
-
+execAggressionDat<- left_join(aggressionDat, execFunctionDat)
 ```
 
 ### Learning Outcomes 4 & 5: Use functions to clean data (and pipes)
