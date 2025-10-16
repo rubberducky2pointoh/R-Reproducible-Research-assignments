@@ -14,6 +14,10 @@ By the end of this class, students should be able to:
 - Incorporate third variables into graphs 
 
 **Notes:** There are several ways that you can graph in R. In today's class, we'll be focusing primarily on `ggplot()`. It's my personal favorite way to graph because you can customize so many things. We won't be able to go through all of them, but today's class will serve as an introduction to graphing and an introduction to different types of customization. 
+```{r}
+library(ggplot2)
+```
+
 
 ## Learning Outcome 1: Transform data to appropriate formats for graphs
 We've already talked about how to transform data into wide and long format. For some of you, you may need to create a data frame that contains summary statistics to graph (e.g. bar graphs). Before we talk about how to make the graphs, I'm going to show you one way you can make a summary data frame. 
@@ -21,21 +25,23 @@ We've already talked about how to transform data into wide and long format. For 
 **summarySE**
 To do this, we're going to use a function called `summarySE()`. It's in the Rmisc package
 ```{r}
-
+library(Rmisc)
 ```
 
 We'll try this with the diamonds dataset (located in ggplot). Specifically, we'll create a summary of price by color. 
 
 Note: If you have a slow computer, make a subset of the diamonds dataset (typically, I use above 1 carat, but choose your favorite dimension)
 ```{r}
-
+diamonds
+library(tidyverse) #R wants you to load Rmisc FIRST, then Tidyverse. It's just fussy
+data("diamonds")
 ```
 
 The structure for summarySE is: 
 
 `summarySE(data, measurevar(the variable you want to summarize), grouping variables, confidence interval)`
 ```{r}
-
+priceByColor<- summarySE(diamonds, measurevar = "price", group = "color") #I do like this tbh
 ```
 
 alternatively, you can use pipes to summarize your data and get it set up in the format you need for graphing. 
@@ -43,14 +49,19 @@ alternatively, you can use pipes to summarize your data and get it set up in the
 To do this, we could use the `group_by()` function and the `summarise()` function 
 
 ```{r}
-
+diamonds %>% 
+  group_by(color) %>% #sometimes you have to add dplyr:: before this
+  summarise(meanPrice= mean(price), sd(price)) #sometimes you have to add dplyr:: before this
 ```
 
 
 ### Learning Outcome 1: Practice 
 1. Open the penguins dataset. Create a dataset containing a summary of the flipper length by species.
 ```{r}
-
+library(palmerpenguins)
+data("penguins")
+speciesFlipperLength<- summarySE(penguins, measurevar = "flipper_length_mm", group = "species", na.rm = TRUE)
+speciesFlipperLength
 ```
 
 ### General Graphing Notes:
