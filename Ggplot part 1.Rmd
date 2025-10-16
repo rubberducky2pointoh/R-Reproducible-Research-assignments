@@ -62,6 +62,11 @@ library(palmerpenguins)
 data("penguins")
 speciesFlipperLength<- summarySE(penguins, measurevar = "flipper_length_mm", group = "species", na.rm = TRUE)
 speciesFlipperLength
+
+pipeVersion<- penguins %>%
+  group_by(species) %>%
+  summarise(meanFlipper= mean(flipper_length_mm, na.rm=TRUE), stdDev = sd(flipper_length_mm, na.rm=TRUE), stdError = sd(flipper_length_mm, na.rm=TRUE)/sqrt(nrow(penguins)), lowercI = mean(flipper_length_mm, na.rm=TRUE) - .95*sd(flipper_length_mm, na.rm=TRUE)/sqrt(nrow(penguins)), upperCI = mean(flipper_length_mm, na.rm=TRUE) + .95*sd(flipper_length_mm, na.rm=TRUE)/sqrt(nrow(penguins)))
+pipeVersion
 ```
 
 ### General Graphing Notes:
