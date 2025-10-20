@@ -180,9 +180,9 @@ ggplot(diamonds, aes(clarity))+
 Note - \n- starts a new line 
 ```{r}
 ggplot(diamonds, aes(clarity))+ 
-  geom_bar(color="black", fill="lightgreen")+ 
-  theme_classic()+ 
-  labs(title = "Graph of Diamond Clarity", x = "\nClarity of \nDiamond", y = "Frequency")
+  geom_bar(color="red2", fill="green", linewidth=10)+ 
+  theme(panel.background = element_rect(fill="yellow"))+ 
+  labs(title = "Graph of Diamond Clarity", x = "Clarity of \nDiamond", y = "Frequency")
 ```
 
 **Using means in bar graphs**
@@ -203,13 +203,13 @@ ggplot(priceByColor, aes(color, price))+
 
 ```{r}
 ggplot(priceByColor, aes(color, price))+ 
-  geom_bar(stat="identity", fill= "lightblue", alpha=.7)+ 
-  geom_errorbar(aes(ymin= price - se, ymax= price + se, width=.5))+
-  theme_classic()
+  geom_bar(stat="identity", color = "#395E66", fill= "#32936F", alpha=.8)+ 
+  geom_errorbar(aes(ymin= price - se, ymax= price + se, width=.5), color = "#764134")+
+  theme_bw()
 ```
 
 Things I included:
-- width: to get error bars to fit on top of bars
+- width: to get error bars to fit on top of bars 
 - alpha: transparency of bars
 
 **Note:** there are several cases where the you may to include the argument `position_dodge()` to get the standard error bars to align with the actual bars on your graph. We may go through an example of this later, but if we don't have time, R cookbook has really good examples of how to do this. 
