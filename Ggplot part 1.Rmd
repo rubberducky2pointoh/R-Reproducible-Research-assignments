@@ -216,11 +216,17 @@ Things I included:
 
 **adding lines** (hline/vline)
 ```{r}
-
+ggplot(priceByColor, aes(color, price))+ 
+  geom_bar(stat="identity", color = "#395E66", fill= "#32936F", alpha=.8)+ 
+  geom_errorbar(aes(ymin= price - se, ymax= price + se, width=.5), color = "#764134")+
+  theme_bw()+ geom_hline(yintercept = mean(diamonds$price), size= 1, linetype= "dashed", color= "blue4")
 ```
 
 ```{r}
-
+ggplot(priceByColor, aes(color, price))+ 
+  geom_bar(stat="identity", color = "#395E66", fill= "#32936F", alpha=.8)+ 
+  geom_errorbar(aes(ymin= price - se, ymax= price + se, width=.5), color = "#764134")+
+  theme_bw()+ geom_vline(xintercept = "G", color="blue4") #better to explicitly code where the line should go
 ```
 
 Things I changed: 
@@ -233,46 +239,83 @@ Things I changed:
 
 ### Practice: 
 1. Create a bar graph for the species column. 
-2. Change the x and y labels to something that is more informative. 
+```{r}
+ggplot(penguins, aes(species))+ geom_bar(color= "#395E66", fill= "#32936F")
+```
+
+2. Change the x and y labels to something that is more informative.
+```{r}
+ggplot(penguins, aes(species))+ 
+  geom_bar(color= "#7D5BA6", fill= "#92DCE5")+
+  xlab("\nPenguin Species")+
+  ylab("\nNumber of Penguins")+
+  ggtitle("\nPenguin Species Count Across Islands")+
+  theme_bw()
+```
+
 
 ### Adding a second variable to a bar graph: 
 ```{r}
+ggplot(diamonds, aes(color, fill=cut))+
+  geom_bar()+
+  theme_bw() #stacked
 
+ggplot(diamonds, aes(color, fill=cut))+
+  geom_bar(position=position_dodge())+
+  theme_bw() #categorical
 ```
 
 ```{r}
-
+data(mtcars)
+ggplot(mtcars, aes(cyl, fill=as.factor(mpg)))+
+  geom_bar()+
+  theme_bw() # OW MY EYES THAT HURTS DONT OPEN THAT
 ```
 
 
 **Scatter plot**
 We can make scatter plots using the argument `geom_point()`. We'll make a graph of carat by price. 
 ```{r}
-
+ggplot(diamonds, aes(carat, price))+
+  geom_point()+
+  theme_bw()
 ```
 
 ```{r}
-
+ggplot(diamonds, aes(carat, price))+
+  geom_point(color= "#324376")+ #there's no real "fill" option, sorgy
+  theme_bw()
 ```
 
 ```{r}
-
+ggplot(diamonds, aes(carat, price))+
+  geom_point(color= "#F68E5F", size= 1, shape= 5)+ #there's no real "fill" option, sorgy
+  theme_bw()
 ```
 
 #jitter()
 ```{r}
+ggplot(mtcars, aes(cyl, gear))+
+  geom_point()+
+  theme_bw()
 
+ggplot(mtcars, aes(cyl, gear))+
+  geom_jitter()+
+  theme_bw() #This introduces variability, but is a little misleading. Only add this to other graphs to get a sense of variability
 ```
 
 ### Practice
 - make a scatter plot of bill length and bill depth. 
 ```{r}
-
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm))+
+  geom_point()
 ```
 
 - modify the graph to include at least 2of the style elements we talked about
 ```{r}
-
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm))+
+  geom_point(color= "#313D5A", size= 3, shape= 8)+
+  theme_bw()
 ```
 
 **Note:**In this case, `geom_point()` is the best option to make our scatter plot. If you work with small datasets, the points may be overlapping and make it look like you have less data. In these cases, you can use `geom_jitter()`, which will offset the dots slightly and allow you to see each participant.  
@@ -280,50 +323,61 @@ We can make scatter plots using the argument `geom_point()`. We'll make a graph 
 **Inserting a regression line**
 We can include a regression line into our graph using `geom_smooth()`.
 ```{r}
-
+ggplot(diamonds, aes(carat, price))+
+  geom_point()+
+  geom_smooth(method="lm", size=1, color="orange", linetype="dashed")+
+  theme_bw()
 ```
 We can customize whether the regression line has a confidence interval surrounding it. You may be asking yourself **what confidence interval**. Carat and price are very highly correlated. let's use an mtcars example to see how we can change it. 
 w/ 95% confidence interval shaded
 ```{r}
-
+ggplot(mtcars, aes(mpg, hp))+
+  geom_point()+
+  geom_smooth(method="lm", se= FALSE) #se= FALSE doesn't need to be removed, it gives more info, but this is how to remove it
 ```
 **Changing scatterplots**
 you can change the outline of a dot using "color" 
 ```{r}
-
+ggplot(diamonds, aes(carat, price, color=color))+
+  geom_point()
 ```
 
 ####Practice: 
 1. Create a scatter plot of the body mass and flipper length variables. 
 ```{r}
-
+ggplot(penguins, aes(body_mass_g, flipper_length_mm))+
+  geom_point()
 ```
 2. Change the color of the points to your favorite color. 
 ```{r}
-
+ggplot(penguins, aes(body_mass_g, flipper_length_mm))+
+  geom_point(color="#58cc1f")
 ```
 3. Change the shape of the points. 
 ```{r}
-
+ggplot(penguins, aes(body_mass_g, flipper_length_mm))+
+  geom_point(color="#58cc1f", shape=15)
 ```
 4. Add a line of best fit to your scatter plot. 
 ```{r}
-
+ggplot(penguins, aes(body_mass_g, flipper_length_mm))+
+  geom_point(color="#58cc1f", shape=15)+
+  geom_smooth(method="lm", color= "#5A2328", linetype="dashed")+
+  theme_bw()
 ```
 
 **Line graphs**
 Line graphs follow a similar to scatterplots, but use the geom_line function. Color customizations follow the same rules as scatterplots. 
 include group in aes
 ```{r}
-
+data("ChickWeight")
+ggplot(ChickWeight, aes(Time, weight, group=Chick))+
+  geom_line()
 ```
 
 ```{r}
-
-```
-#cyl
-```{r}
-
+ggplot(ChickWeight, aes(Time, weight, group=Chick, color=Chick))+
+  geom_line()
 ```
 
 I won't talk as much about these graphs, but happy to answer questions. 
@@ -331,17 +385,38 @@ I won't talk as much about these graphs, but happy to answer questions.
 **Box plots**
 I hope that the pattern is starting to make sense, but the only difference with a box plot is that you'll use `geom_boxplot()`. 
 ```{r}
-
+ggplot(diamonds, aes(price))+
+  geom_boxplot()
 ```
 
 ```{r}
-
+ggplot(diamonds, aes(color, price))+
+  geom_boxplot()
 ```
 
 ```{r twoVariableBoxplot}
-
+ggplot(diamonds, aes(color, price))+
+  geom_boxplot(color= "black", fill="lightblue")
 ```
-
+```{r}
+ggplot(diamonds, aes(color, price))+
+  geom_boxplot(color= "black", fill="lightblue")+
+  geom_jitter()
+```
+```{r}
+ggplot(mtcars, aes(as.factor(cyl), mpg))+
+  geom_boxplot()+
+  geom_jitter()
+```
+### Violin Plot
+```{r}
+ggplot(diamonds, aes(color, price))+ geom_violin()
+```
+```{r}
+ggplot(mtcars, aes(as.factor(cyl), mpg))+
+  geom_violin()+
+  geom_jitter()
+```
 
 ### Practice: 
 1. Create a boxplot for flipper length.
