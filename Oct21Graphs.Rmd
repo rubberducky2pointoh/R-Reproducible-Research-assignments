@@ -1,0 +1,12 @@
+# Loading in through Import on the side ->
+
+Best graph first
+```{r}
+
+```
+
+Now the worst one
+```{r}
+
+```
+
