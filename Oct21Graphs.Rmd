@@ -1,12 +1,31 @@
 # Loading in through Import on the side ->
+```{r}
+library(ggplot2)
+```
+
+Hey so what's here
+```{r}
+colnames(mentalHealthDat)
+```
+
 
 Best graph first
 ```{r}
-
+ggplot(mentalHealthDat, aes(stressLevel, fill=as.factor(cortisolLevel)))+
+  geom_bar()+
+  theme_bw()+
+  xlab("\nStress Level")+
+  ylab("\nResponses")+
+  ggtitle("Stress Level by Cortisol Level")
 ```
 
 Now the worst one
 ```{r}
-
+ggplot(mentalHealthDat, aes(stressLevel, cortisolLevel))+
+  geom_point(color = "white", size = 1, shape = 8)+
+  theme_bw()+
+  geom_jitter(color = "white", size =1, shape=8)+
+  theme(panel.background = element_rect(fill = "#00272B"))+
+  geom_smooth(method="lm", size=20, color="white")
 ```
 
