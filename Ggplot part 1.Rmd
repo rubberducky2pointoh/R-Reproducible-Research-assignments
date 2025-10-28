@@ -439,14 +439,17 @@ There are many ways that we can include third variables.
 
 For histograms/bar graphs: 
 use fill = 
+price histogram
 ```{r}
-
+ggplot(diamonds, aes(price, fill=color))+
+  geom_histogram(bins=15)
 ```
 
 For scatter plots: 
 color = 
 ```{r}
-
+ggplot(diamonds, aes(price, carat, color=cut))+
+  geom_point()
 ```
 
 Rather than having all bars/dots/lines the same color, you can have them change by using various packages and by looking up a few color codes online. 
@@ -455,42 +458,67 @@ If you don't like the colors, we can specify specific ones using `scale_fill_man
 (need to specify option for color scales)
 We'll walk through these together because I think it's helpful to see what color combinations exist and how you can use them in a bar graph or a scatter plot.
 ```{r}
-
+ggplot(diamonds, aes(price, fill=color))+
+  geom_histogram(position=position_dodge(), bins=15)+
+  scale_fill_manual(values=c("#726DA8", "#71B340", "#00ABE7", "#DE6E4B", "#FDE74C", "#21D19F", "#56351E"))
 ```
 `scale_color_manual(values = #)`; 
 ```{r}
-
+ggplot(diamonds, aes(price, carat, color=cut))+
+  geom_point()+
+  scale_color_manual(values=c("#820933", "#D84797", "#D2FDFF", "#3ABEFF", "#26FFE6"))
 ```
 
 R ColorBrewer
 `scale_color_brewer(palette=)`
 ```{r}
+library(RColorBrewer)
+ggplot(diamonds, aes(price, carat, color=cut))+
+  geom_point()+
+  scale_color_brewer(palette = "GnBu")+
+  theme_bw()
 
+ggplot(diamonds, aes(price, fill=color))+
+  geom_histogram()+
+  scale_fill_brewer(palette="Set2")
+
+# You can find the palettes through google
 ```
 
 Viridis
 `scale_color_viridis()`
 ```{r}
+library(viridis)
+ggplot(diamonds, aes(price, fill=color))+
+  geom_histogram()+
+  scale_fill_viridis(discrete=TRUE, option="C")
 
+ggplot(diamonds, aes(price, carat, color=cut))+
+  geom_point()+
+  scale_color_viridis(discrete=TRUE, option="C")
 ```
 
 
 ### Learning Outcome 4 Practice. 
 1. Create a graph of bill length and island
 ```{r}
-
+ggplot(penguins, aes(island, bill_length_mm))+
+  geom_boxplot()
 ```
 
 2. In some way, include species as a third variable in this graph. 
 ```{r}
-
+ggplot(penguins, aes(island, bill_length_mm, fill=species))+
+  geom_boxplot()
 ```
 
 3. Create a graph of bill length and bill depth
 ```{r}
-
+ggplot(penguins, aes(bill_depth_mm, bill_length_mm))+
+  geom_point()
 ```
 4. In some way, include species as a third variable.
 ```{r}
-
+ggplot(penguins, aes(bill_depth_mm, bill_length_mm, color=species))+
+  geom_point()
 ```
