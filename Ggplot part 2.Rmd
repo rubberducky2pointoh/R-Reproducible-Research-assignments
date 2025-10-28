@@ -158,7 +158,7 @@ ggplot(diamonds, aes(color, price, fill=cut))+
   ylab("Price of Diamond")+
   facet_wrap(~cut)
 
-ggsave("PrettyDiamondGraph.tiff", width=10, height=10, units="in", dpi=300)
+ggsave("PrettyDiamondGraph.tiff", width=10, height=10, units="in", dpi=300) #This saves whatever the LAST graph you made was!!! Be careful!!!
 ```
 I don't usually specify a path in ggsave, but make sure my r code is in the directory I'd like it to be saved in. you can check your working directory by using this code
 ```{r}
