@@ -18,12 +18,19 @@ It can also be helpful to understand how to modify your legend:
 
 Let's try this on a graph from the diamonds dataset: 
 ```{r}
-
+data("diamonds")
+library(tidyverse)
+library(ggplot2)
+ggplot(diamonds, aes(color, price, fill=cut))+
+  geom_boxplot()+
+  theme(legend.position = "none") #other arguments: top, left, right, bottom, none
 ```
 
 We can also change the location: 
 ```{r}
-
+ggplot(diamonds, aes(color, price, fill=cut))+
+  geom_boxplot()+
+  theme(legend.position = "bottom")
 ```
 
 To Change the legend title, you can use a couple of different codes, depending on the type of data: 
@@ -31,35 +38,52 @@ To Change the legend title, you can use a couple of different codes, depending o
 `scale_fill_manual(name="Title)` should work for a bar graph filled in by a factor
 `scale_color_continuous()` and `scale_fill_continuous()` should work for a numeric fill
 ```{r}
-
+ggplot(diamonds, aes(color, price, fill=cut))+
+  geom_boxplot()+
+  theme(legend.position = "bottom")+
+  scale_fill_manual(name= "Cut of Diamond", values = c("purple", "blue", "green", "orange", "red", "yellow", "pink"))
 ```
 
 ### Practice:
 
 1) make a graph of bill length and bill depth. Include island as a third variable
 ```{r}
-
+data(penguins)
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color=island))+
+  geom_point()
 ```
 
 2) Move the legend to the top of the graph
 ```{r}
-
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color=island))+
+  geom_point()+
+  theme_bw()+
+  theme(legend.position = "top")
 ```
 
 3) Remove the legend from the graph 
 ```{r}
-
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color=island))+
+  geom_point()+
+  theme_bw()+
+  theme(legend.position = "none")
 ```
 
 4) Change the title of the legend
 ```{r}
-
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color=island))+
+  geom_point()+
+  theme_bw()+
+  theme(legend.position = "top")+
+  scale_color_manual(name="Location of Penguin", values = c("#D84797", "#94FBAB", "#3ABEFF"))
 ```
 
 
 5) make a graph of bill length and bill depth. Include flipper length as a third variable
 ```{r}
-
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm, color=flipper_length_mm))+
+  geom_point()+
+  theme_bw()
 ```
 
 ### Learning Outcome 2: Describe how to use facet wrap
