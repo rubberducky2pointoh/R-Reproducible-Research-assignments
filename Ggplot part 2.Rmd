@@ -91,25 +91,55 @@ Facet Wrap allows us to incorporate a third variable in another way. Specificall
 
 we need to make a graph and save it 
 ```{r}
+ggplot(diamonds, aes(color, price, color=cut))+
+  geom_point()
 
+ggplot(diamonds, aes(color, price, fill=cut))+
+  geom_boxplot()+
+  facet_wrap(~cut)+
+  theme_bw()
 
+ggplot(diamonds, aes(carat, price, color=cut))+
+  geom_point()+
+  geom_smooth(method="lm", color="black")+
+  facet_wrap(~cut)+
+  theme_bw()
+```
+```{r}
+ggplot(diamonds, aes(carat, price, color=cut))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_wrap(~color)+
+  theme_bw()
 ```
 
 ### change labels on the axes
 change levels beforehand
 ```{r}
+levels(penguins$species)<- c("Adelie Penguin", "Chinstrap Penguin", "Gentoo Penguin")
 
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm))+
+  geom_point()+
+  facet_wrap(~species)
 ```
 
 make a vector called labels. use `labeller=as_labeller())` in `facet_wrap()`
 ```{r}
+speciesTitle<- c("Adelie Penguin"="Adelie", "Chinstrap Penguin"="Chinstrap","Gentoo Penguin"="Gentoo")
 
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm))+
+  geom_point()+
+  facet_wrap(~species, labeller= as_labeller(speciesTitle))
 ```
 
 ### Practice: 
 1) create a facet wrap graph to generate a scatterplot of mpg and hp based on the number of cylinders a car has
 ```{r}
+data("mtcars")
 
+ggplot(mtcars, aes(mpg, hp))+
+  geom_point()+
+  facet_wrap(~cyl)
 ```
 
 ### Learning Outcome 3: Explain how to export graphs
