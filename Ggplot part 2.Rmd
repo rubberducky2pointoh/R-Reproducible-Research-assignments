@@ -139,7 +139,8 @@ data("mtcars")
 
 ggplot(mtcars, aes(mpg, hp))+
   geom_point()+
-  facet_wrap(~cyl)
+  facet_wrap(~cyl)+
+  theme_bw()
 ```
 
 ### Learning Outcome 3: Explain how to export graphs
@@ -147,13 +148,23 @@ to export graphs, I use the command `ggsave()`
 Specifically, you can use the following arguments: 
 `ggsave("name of graph", width, height, units, dpi)`
 ```{r}
+ggplot(diamonds, aes(color, price, fill=cut))+
+  geom_boxplot()+
+  theme_bw()+
+  theme(legend.position = "bottom")+
+  scale_fill_manual(name= "Cut of Diamond", values=c("#820933", "#D84797", "#94FBAB", "#3ABEFF", "#26FFE6"))+
+  labs(title = "\nDiamond Price by Color")+
+  xlab("Diamond Color")+
+  ylab("Price of Diamond")+
+  facet_wrap(~cut)
 
+ggsave("PrettyDiamondGraph.tiff", width=10, height=10, units="in", dpi=300)
 ```
 I don't usually specify a path in ggsave, but make sure my r code is in the directory I'd like it to be saved in. you can check your working directory by using this code
 ```{r}
-
+getwd() # check you're in your project!
 ```
 you can change your working directory using this code: 
 ```{r}
-
+setwd()
 ```
