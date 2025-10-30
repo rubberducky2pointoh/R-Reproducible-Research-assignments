@@ -19,7 +19,7 @@ stateUniversity <- sample(c("UMN", "UMD", "UMich", "KU", "UGA", "NYU", "Rutgers"
 radius<- abs(rnorm(n = 100, mean = 1, sd = .25))
 boba<- sample(0:25, 100, replace = TRUE)
 studentSize<- sample(15000:50000, 100, replace = TRUE)
-schoolClimate<- sample(c("freezing", "cool","snowy", "warm", "hot", "humid"), 100, replace = TRUE)
+schoolClimate<- sample(c("freezing", "snowy","cool", "warm", "hot", "humid"), 100, replace = TRUE)
 studentInterest<- sample(c("very low", "low", "moderate", "high", "very high"), 100, replace = TRUE)
 ```
 
@@ -34,27 +34,42 @@ In the case where we have two categorical predictors, there are a few options we
 
 load tidyverse
 ```{r}
-
+library(tidyverse)
 ```
+Predict # of boba shops based on school climate & student interest
 
-then, can create a table with means 
+then, can create a table with means
 ```{r}
-
+stdErr<- function(column){
+  sd(column)/sqrt(length(column))
+}
+summaryBoba<- bobaDat %>%
+  group_by(schoolClimate, studentInterest) %>%
+  dplyr::summarise(Mean= mean(boba), stdev= sd(boba), stderr= stdErr(boba))
 ```
+```{r}
+subset(bobaDat, bobaDat$schoolClimate=="cool" & bobaDat$studentInterest=="high")
+```
+
 use this output to create a graph 
 
 ```{r}
-
+ggplot(summaryBoba, aes(schoolClimate, Mean, fill=studentInterest))+
+  geom_bar(stat="identity", position=position_dodge())+
+  geom_errorbar(aes(ymin = Mean-stderr, ymax = Mean+stderr), position = position_dodge(), width=.90)+
+  theme_bw()
 ```
 
 Alternatively, could use facet wrap with boxplots
 ```{r}
-
+ggplot(bobaDat, aes(schoolClimate, boba))+
+  geom_boxplot()+
+  facet_wrap(~studentInterest)
 ```
 
 Finally, could use ggeffects package. Need to load the library
 ```{r}
-library(ggeffects)
+library(ggeffects) #why doesn't it like me
 ```
 
 Then, you can use the `ggpredict(model, terms = effects)` function to get predictions. We save these, and then use the `plot()` function to create an interaction plot
@@ -67,7 +82,14 @@ we've already talked about some ways to show these sorts of interactions
 
 using `facet wrap()`
 ```{r}
+ggplot(bobaDat, aes(studentSize, boba, color=studentInterest))+
+  geom_point()+
+  geom_smooth(method="lm")
 
+ggplot(bobaDat, aes(studentSize, boba, color=studentInterest))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_wrap(~studentInterest)
 ```
 
 using color 
