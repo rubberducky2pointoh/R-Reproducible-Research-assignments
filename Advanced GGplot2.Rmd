@@ -14,12 +14,18 @@ Now that we've covered statistics and graphing, we can bring the two together to
 
 First, we need some data. For today, we'll use simulated data:
 ```{r}
-
+set.seed(137)
+stateUniversity <- sample(c("UMN", "UMD", "UMich", "KU", "UGA", "NYU", "Rutgers", "URI", "UPenn", "Ohio", "PennState", "UDel", "UConn", "UCLA", "UC Riverside", "UC Santa Barbara", "UC Merced", "NDSU", "USC", "UNC"), 100, replace = TRUE)
+radius<- abs(rnorm(n = 100, mean = 1, sd = .25))
+boba<- sample(0:25, 100, replace = TRUE)
+studentSize<- sample(15000:50000, 100, replace = TRUE)
+schoolClimate<- sample(c("freezing", "cool","snowy", "warm", "hot", "humid"), 100, replace = TRUE)
+studentInterest<- sample(c("very low", "low", "moderate", "high", "very high"), 100, replace = TRUE)
 ```
 
 #create dataset
 ```{r}
-
+bobaDat<- cbind.data.frame(stateUniversity, radius, boba, studentSize, schoolClimate, studentInterest)
 ```
 
 
