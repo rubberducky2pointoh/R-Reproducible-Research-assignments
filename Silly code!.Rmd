@@ -1,0 +1,11 @@
+Make a plot showing the relationship between depth and clarity
+```{r}
+library(tidyverse)
+data("diamonds")
+library(ggplot2)
+
+ggplot(diamonds, aes(depth, clarity))+
+  geom_bar()+
+  theme(classic)+
+  geom_smooth(method=lm)
+```
