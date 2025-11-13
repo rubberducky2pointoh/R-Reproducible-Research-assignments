@@ -5,7 +5,7 @@ data("diamonds")
 library(ggplot2)
 
 ggplot(diamonds, aes(depth, clarity))+
-  geom_bar()+
-  theme(classic)+
-  geom_smooth(method=lm)
+  geom_bar()+ #Bar graphs don't like x and y variables like this, so either the graph type needs to be changed or we need to use fill=clarity in the line above
+  theme(classic)+ #No object called classic. Code should be theme_classic()
+  geom_smooth(method=lm) #Need parentheses around lm argument
 ```
