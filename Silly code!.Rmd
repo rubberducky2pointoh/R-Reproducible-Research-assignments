@@ -1,3 +1,4 @@
+
 Make a plot showing the relationship between depth and clarity in the diamonds dataset.
 ```{r}
 library(tidyverse)
