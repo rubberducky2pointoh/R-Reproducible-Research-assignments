@@ -95,7 +95,11 @@ These two models get plugged in to the `mediate()` function.
 then, we take a summary
 
 ```{r}
+mediatorX<- lm(bill_depth_mm~ bill_length_mm, data = penguins)
+yfromXMed<- lm(body_mass_g~ bill_length_mm+ bill_depth_mm, data = penguins)
 
+library(mediation)
+mediate(mediatorX, yfromXMed, treat="bill_length_mm", mediator="bill_depth_mm")
 ```
 
 Interpretation: 
