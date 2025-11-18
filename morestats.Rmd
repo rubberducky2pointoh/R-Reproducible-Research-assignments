@@ -99,7 +99,7 @@ mediatorX<- lm(bill_depth_mm~ bill_length_mm, data = penguins)
 yfromXMed<- lm(body_mass_g~ bill_length_mm+ bill_depth_mm, data = penguins)
 
 library(mediation)
-mediate(mediatorX, yfromXMed, treat="bill_length_mm", mediator="bill_depth_mm")
+summary(mediate(mediatorX, yfromXMed, treat="bill_length_mm", mediator="bill_depth_mm"))
 ```
 
 Interpretation: 
@@ -113,4 +113,21 @@ Nonlinear models in R can be really versatile and helpful for analyses. Mixed mo
 
 Here's one resource to get started, and I'm happy to talk about applications with groups individually (https://stats.oarc.ucla.edu/other/mult-pkg/introduction-to-generalized-linear-mixed-models/)
 
+#### super quick not really code version
+
+```{r}
+#glm = generalized linear model
+# glm(outcome ~ predictor, data = dataname, family = "familyname")
+#family depends on type of data
+# binomial family; logistic regression where you have dichotomous output
+# poisson family; count data
+```
+
+
 ### Repeated Measures ANOVA
+
+there's like six of these actually
+```{r}
+# ezANOVA online, but it's really long and I kind of hate that
+```
+
