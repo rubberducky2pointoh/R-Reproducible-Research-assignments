@@ -31,6 +31,9 @@ When we are making documents in R Markdown, we don't always want people to see a
 
 -   if TRUE, shows code in knitted file
 -   if FALSE, does not show code
+```{r introCode}
+
+```
 
 ```{r testEchoTrue, echo=TRUE}
 data(mtcars)
@@ -83,9 +86,20 @@ Try these on your own! Create a code chunk with a graph of your favorite data th
 
 1. What happens if you use echo= FALSE? 
 no code, but get output
+```{r numberOneOutcomeOne, echo=FALSE}
+data("diamonds")
+ggplot(diamonds, aes(carat, depth, color=cut))+
+  geom_point()+
+  theme_bw()
+```
 
 2. What happens if you use include FALSE? 
 no code no output
+```{r numberTwoOutcomeOne, include=FALSE}
+ggplot(diamonds, aes(carat, depth, color=cut))+
+  geom_point()+
+  theme_bw()
+```
 
 3. Try combining multiple arguments in your code chunk (pick your favorites).
 
@@ -105,7 +119,7 @@ You can also use r code inline (meaning in your actual sentences), rather than i
 
 If you want to highlight something is code, but not run it, you can do something like `mean(data$column)`.
 
-If you want to actually run R code, you need to modify it slightly to `r "insert code here."` For instance, we could do "the mean of the mpg column is `r mean(mtcars$mpg)`
+If you want to actually run R code, you need to modify it slightly to `r "insert code here."` For instance, we could do "the mean of the mpg column is `r mean(mtcars$mpg, digits=2)`
 
 ```{r include=FALSE}
 data(diamonds)
@@ -123,6 +137,7 @@ the correlation is `r cor(mtcars$mpg, mtcars$hp)`
 ### Practice:
 Try Writing a sentence with any calculation you'd like in it.
 
+The correlation between carat and cut is `r cor(diamonds$carat, as.numeric(diamonds$cut))`
 
 #### More Resources
 <a href= "https://benwhalley.github.io/just-enough-r/apa-output.html"> More information about writing APA results can be found here<a/>
