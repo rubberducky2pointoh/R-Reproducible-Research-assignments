@@ -1,0 +1,162 @@
+---
+title: "Quiz 4"
+author: "Sawyer Wedin"
+date: "2025-11-25"
+output: html_document
+---
+
+To complete this quiz, please solve the coding issues below. You should submit the knitted file (html, word, pdf) so I know you were able to complete the assignment. You may submit the completed file directly to Canvas. 
+
+Note: There may be more than one way to solve each problem.
+
+1. Creating labels for a scatterplot
+```{r, echo=TRUE}
+library (tidyverse)
+data("diamonds")
+
+library(ggplot2)
+ggplot(diamonds, aes(carat, price, color=cut))+ 
+  geom_point() + 
+  xlab("# of Carats") + 
+  ylab("Price ($)") + 
+  ggtitle("Diamonds by Carat and Price")
+```
+
+2. In the billboard dataset, use a loop to determine if a song placed 75 below or above during the first week.
+```{r, echo=TRUE}
+data(billboard)
+billboard$belowOrAbove <- NA
+
+for(i in 1:nrow(billboard))
+  billboard$belowOrAbove[i] <- billboard$wk1[i] > 75
+```
+
+3. Using the storms dataset, make a subset of the storms in 2020. Graph wind and pressure. Use facet_wrap to view wind and pressure by storm status. Make each storm status a different color. 
+```{r, echo=TRUE}
+data(storms)
+storms2020 <- subset(storms, storms$year=="2020")
+ggplot(storms, aes(wind, pressure, color=status)) + 
+  geom_point() + 
+  facet_wrap(~status)
+```
+
+4. Open the penguins dataset. Create a histogram of the bill length variable with orange bars and purple lines.
+
+```{r, echo=TRUE}
+library(palmerpenguins)
+data("penguins")
+ggplot(penguins, aes(bill_length_mm))+
+  geom_histogram(bins=20, fill="purple", color="orange")
+```
+
+5. Edit billboard from wide to long format. 
+```{r, echo=TRUE}
+longBill<-billboard %>% pivot_longer(cols=4:80, names_to="week", values_to="score")
+```
+
+6. create a data frame of just the name of the character, their homeworld, and their species.
+```{r, echo=TRUE}
+data(starwars)
+starwarsSelect <- starwars %>% select(c("name", "homeworld", "species"))
+starwarsSelect
+```
+
+7. Using the starwars dataset, create a graph of mass and birth year. Add species as a third variable and move your legend to the bottom of your graph. 
+
+```{r}
+ggplot(starwars, aes(mass, birth_year, color = sex))+
+  geom_point()+
+  theme_bw()+
+  theme(legend.position = "bottom")
+```
+
+8. Find the average height of characters from the starwars data set.
+```{r}
+mean(starwars$height, na.rm = TRUE)
+```
+
+9. Create a graph of the length and depth of a penguin's bill. 
+```{r}
+ggplot(penguins, aes(bill_length_mm, bill_depth_mm))+ geom_point(color="skyblue")
+```
+
+10. Add an addition variable called "pretty" to the diamonds dataset that lists "yes" if the diamond is color D and "no" if the diamonds in any other color
+```{r}
+diamonds$colorNumber<- as.numeric(diamonds$color)
+diamonds$pretty<- ifelse(diamonds$colorNumber==1, "yes", "no")
+```
+
+11. Upload the student mental health dataset. Conduct an independent samples t-test on the students_mental_health_survey fall 2025.csv only between those with poor and good sleep quality for stress level.
+```{r}
+smh <- read.csv("~/PSY 4802/students_mental_health_survey fall 2025 (1).csv")
+data(smh)
+levels(as.factor(smh$sleepQuality))
+t.test(stressLevel ~ sleepQuality, data = smh, var.equal = TRUE)
+```
+
+12. Using the sleep dataset transform the data to long/wide 
+
+```{r}
+view(sleep)
+pivotlonger(sleep, id=c("ID")), names_from="group", values_from="extra")
+```
+
+13. Make a dataset of carat, cut, clarity and price
+```{r}
+diamondsSub<- subset(diamonds$carat, diamonds$cut, diamonds$clarity, diamonds$price)
+```
+
+14. Find the correlation between a diamond's carat and price
+
+```{r}
+cor(diamonds$carat, price)
+```
+
+15. Make a scatterplot for character mass and height in the starwars dataset.
+```{r}
+sw<-data(starwars)
+sw_hm <- ggplot(sw, vals = c(height, mass)) + 
+  geom_point()
+
+sw_hm
+```
+
+16. Create a bar graph of penguin species with appropriate labels. 
+```{r}
+ggplot2(penguins, aes(species))+geom_bar(color="black", color="orange") + theme_minimal()+ xlab("species") ylab("frequency")+ ggtitle("Penguin Species")
+```
+
+17. Create a for loop that will multiply each number in a vector by 8. Test it with a vector containing the numbers 10000:100000. 
+```{r}
+<- 10000:10000
+number<-NA
+for(i in 1:length()){
+  number[i]<-[i]*8
+}
+```
+
+18. Make a histogram of mpg with color representing vs with the mtcars dataset. 
+```{r}
+ggplot(mtcars, aes(mpg, fill = vs)) + geom_histogram() + scale_color_brewer(type = "qual", palette = "Set2")
+```
+
+19. Create a graph of cortisol level from the student mental health dataset. 
+```{r}
+ggplot(smh$cortisolLevel)+ geom_histogram + geom_vline(xintercept = mean(smh$cortisolLevel), color="orchid", size= 1)+ theme_classic()+ geom_vline(xintercept = median(smh$cortisolLevel), size= 1, linetype=dashed, color= "orchid4")+ geom_vline(xintercept = mfv(smh$cortisolLevel), color="wheat", size= 1)
+```
+
+20. find the means and sds of the bill_length_mm column and bill_depth_mm column in the penguins dataset. 
+```{r}
+mean(penguins$bill_length_mm, na.rm = TRUE)
+sd(penguins$bill_lengh_mm, na.rm = TRUE) 
+mean(penguins$bill_depth_mm, na.rm = TRUE)
+sd(penguins$bill_depth_mm, na.rm = TRUE)
+```
+
+21. Make a plot showing the relationship between depth and clarity in the diamonds dataset.
+```{r}
+ggplot(diamonds, aes(depth, clarity))+
+  geom_bar()+ 
+  theme(classic)+ 
+  geom_smooth(method=lm)
+```
